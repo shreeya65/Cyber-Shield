@@ -1,0 +1,1685 @@
+{
+  "name": "Combined_Cyber",
+  "nodes": [
+    {
+      "parameters": {
+        "binaryPropertyName": "data0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -1664,
+        -176
+      ],
+      "id": "a02d0e63-7a0b-4074-a65b-e2c4979e124f",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.3,
+      "position": [
+        3680,
+        -144
+      ],
+      "id": "7253b989-59fa-4297-8b74-87f99d884883",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n-preprocess-apt.onrender.com/preprocess/apt",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify([$json]) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -896,
+        -464
+      ],
+      "id": "8225440a-d599-4e6e-af7f-11ea710ba5da",
+      "name": "APT PP1"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "return {\n  json: {\n    timestamp: $json.timestamp,\n    src_port: $json.src_port,\n    dst_port: $json.dst_port,\n    protocol: $json.protocol,\n    flow_duration: $json.flow_duration,\n    tot_fwd_pkts: $json.tot_fwd_pkts,\n    tot_bwd_pkts: $json.tot_bwd_pkts,\n    totlen_fwd_pkts: $json.totlen_fwd_pkts,\n    totlen_bwd_pkts: $json.totlen_bwd_pkts,\n    fwd_pkt_len_max: $json.fwd_pkt_len_max,\n    fwd_pkt_len_min: $json.fwd_pkt_len_min,\n    fwd_pkt_len_mean: $json.fwd_pkt_len_mean,\n    fwd_pkt_len_std: $json.fwd_pkt_len_std,\n    bwd_pkt_len_max: $json.bwd_pkt_len_max,\n    bwd_pkt_len_min: $json.bwd_pkt_len_min,\n    bwd_pkt_len_mean: $json.bwd_pkt_len_mean,\n    bwd_pkt_len_std: $json.bwd_pkt_len_std,\n    flow_byts_s: $json.flow_byts_s,//\n    flow_pkts_s: $json.flow_pkts_s,//\n    flow_iat_mean: $json.flow_iat_mean,\n    flow_iat_std: $json.flow_iat_std,\n    flow_iat_max: $json.flow_iat_max,\n    flow_iat_min: $json.flow_iat_min,\n    fwd_iat_tot: $json.fwd_iat_tot,\n    fwd_iat_mean: $json.fwd_iat_mean,\n    fwd_iat_std: $json.fwd_iat_std,\n    fwd_iat_max: $json.fwd_iat_max,\n    fwd_iat_min: $json.fwd_iat_min,\n    bwd_iat_tot: $json.bwd_iat_tot,\n    bwd_iat_mean: $json.bwd_iat_mean,\n    bwd_iat_std: $json.bwd_iat_std,\n    bwd_iat_max: $json.bwd_iat_max,\n    bwd_iat_min: $json.bwd_iat_min,\n    fwd_psh_flags: $json.fwd_psh_flags,\n    bwd_psh_flags: $json.bwd_psh_flags,\n    fwd_urg_flags: $json.fwd_urg_flags,\n    bwd_urg_flags: $json.bwd_urg_flags,\n    fwd_header_len: $json.fwd_header_len,\n    bwd_header_len: $json.bwd_header_len,\n    fwd_pkts_s: $json.fwd_pkts_s,\n    bwd_pkts_s: $json.bwd_pkts_s,\n    pkt_len_min: $json.pkt_len_min,\n    pkt_len_max: $json.pkt_len_max,\n    pkt_len_mean: $json.pkt_len_mean,\n    pkt_len_std: $json.pkt_len_std,\n    pkt_len_var: $json.pkt_len_var,\n    fin_flag_cnt: $json.fin_flag_cnt,\n    syn_flag_cnt: $json.syn_flag_cnt,\n    rst_flag_cnt: $json.rst_flag_cnt,\n    psh_flag_cnt: $json.psh_flag_cnt,\n    ack_flag_cnt: $json.ack_flag_cnt,\n    urg_flag_cnt: $json.urg_flag_cnt,\n    cwe_flag_count: $json.cwe_flag_count,\n    ece_flag_cnt: $json.ece_flag_cnt,\n    down_up_ratio: $json.down_up_ratio,\n    pkt_size_avg: $json.pkt_size_avg,\n    fwd_seg_size_avg: $json.fwd_seg_size_avg,\n    bwd_seg_size_avg: $json.bwd_seg_size_avg,\n    fwd_byts_b_avg: $json.fwd_byts_b_avg,\n    fwd_pkts_b_avg: $json.fwd_pkts_b_avg,\n    fwd_blk_rate_avg: $json.fwd_blk_rate_avg,\n    bwd_byts_b_avg: $json.bwd_byts_b_avg,\n    bwd_pkts_b_avg: $json.bwd_pkts_b_avg,\n    bwd_blk_rate_avg: $json.bwd_blk_rate_avg,\n    subflow_fwd_pkts: $json.subflow_fwd_pkts,\n    subflow_fwd_byts: $json.subflow_fwd_byts,\n    subflow_bwd_pkts: $json.subflow_bwd_pkts,\n    subflow_bwd_byts: $json.subflow_bwd_byts,\n    init_fwd_win_byts: $json.init_fwd_win_byts,\n    init_bwd_win_byts: $json.init_bwd_win_byts,\n    fwd_act_data_pkts: $json.fwd_act_data_pkts,\n    fwd_seg_size_min: $json.fwd_seg_size_min,\n    active_mean: $json.active_mean,\n    active_std: $json.active_std,\n    active_max: $json.active_max,\n    active_min: $json.active_min,\n    idle_mean: $json.idle_mean,\n    idle_std: $json.idle_std,\n    idle_max: $json.idle_max,\n    idle_min: $json.idle_min\n  }\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1104,
+        -464
+      ],
+      "id": "f393aa74-e13f-4c80-aec7-22d9e24f1c64",
+      "name": "APT Features1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Load all data\nconst supabaseCredentials = $('Supabase credentials').first();\nconst extractRows = $items('Extract from File');\nconst modelOutputs = $items('APT Model2');\n\n// Sanity check\nif (!supabaseCredentials || extractRows.length === 0 || modelOutputs.length === 0) {\n  throw new Error('Missing input data. Ensure Supabase credentials, Extract from File, and APT Model2 all produced output.');\n}\n\nconst supabaseUrl = supabaseCredentials.json.supabase_url;\nconst supabaseKey = supabaseCredentials.json.supabase_key;\n\n// Field mapping\nconst keyMap = {\n  src_ip: 'src_ip',\n  dst_ip: 'dst_ip',\n  src_port: 'src_port',\n  dst_port: 'dst_port',\n  protocol: 'protocol',\n  flow_duration: 'flow_duration',\n  flow_byts_s: 'flow_bytes_per_s',\n  flow_pkts_s: 'flow_packets_per_s',\n  fwd_pkts_s: 'fwd_packets_per_s',\n  bwd_pkts_s: 'bwd_packets_per_s',\n  tot_fwd_pkts: 'total_fwd_packet',\n  tot_bwd_pkts: 'total_bwd_packets',\n  totlen_fwd_pkts: 'total_length_of_fwd_packet',\n  totlen_bwd_pkts: 'total_length_of_bwd_packet',\n  fwd_pkt_len_max: 'fwd_packet_length_max',\n  fwd_pkt_len_min: 'fwd_packet_length_min',\n  fwd_pkt_len_mean: 'fwd_packet_length_mean',\n  fwd_pkt_len_std: 'fwd_packet_length_std',\n  bwd_pkt_len_max: 'bwd_packet_length_max',\n  bwd_pkt_len_min: 'bwd_packet_length_min',\n  bwd_pkt_len_mean: 'bwd_packet_length_mean',\n  bwd_pkt_len_std: 'bwd_packet_length_std',\n  flow_iat_mean: 'flow_iat_mean',\n  flow_iat_std: 'flow_iat_std',\n  flow_iat_max: 'flow_iat_max',\n  flow_iat_min: 'flow_iat_min',\n  fwd_iat_tot: 'fwd_iat_total',\n  fwd_iat_mean: 'fwd_iat_mean',\n  fwd_iat_std: 'fwd_iat_std',\n  fwd_iat_max: 'fwd_iat_max',\n  fwd_iat_min: 'fwd_iat_min',\n  bwd_iat_tot: 'bwd_iat_total',\n  bwd_iat_mean: 'bwd_iat_mean',\n  bwd_iat_std: 'bwd_iat_std',\n  bwd_iat_max: 'bwd_iat_max',\n  bwd_iat_min: 'bwd_iat_min'\n};\n\nconst results = [];\n\nfor (let i = 0; i < extractRows.length; i++) {\n  const source = extractRows[i].json;\n  const modelOutput = modelOutputs[i]?.json;\n\n  if (!modelOutput) continue;\n\n  const prediction = modelOutput.prediction;\n  const probabilities = modelOutput.probabilities || [];\n  const prob = typeof prediction === 'number' ? probabilities[prediction] ?? null : null;\n  const isNormal = prediction === 3;\n  const tableName = isNormal ? \"normal_traffic_apt\" : \"attack_traffic_apt\";\n\n  const row = {};\n  for (const [inputKey, dbKey] of Object.entries(keyMap)) {\n    let val = source[inputKey];\n    if (val === undefined || val === null) {\n      row[dbKey] = null;\n    } else if (!isNaN(val)) {\n      row[dbKey] = Number(val);\n    } else {\n      row[dbKey] = val;\n    }\n  }\n\n  // Add label/prob only for attack table\n  if (!isNormal) {\n    row.Label = prediction;\n    row.Prob = prob;\n  }\n\n  results.push({\n    json: {\n      supabase_url: supabaseUrl,\n      supabase_key: supabaseKey,\n      table: tableName,\n      payload: row,\n      pred: prediction,\n      prob: prob\n    }\n  });\n}\n\nreturn results;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1840,
+        -1056
+      ],
+      "id": "c665ade7-90b4-485b-a942-e7dcfffc8567",
+      "name": "Push into Supabase1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.supabase_url }}/rest/v1/{{$json[\"table\"]}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $json.supabase_key }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.supabase_key }}"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[{{ JSON.stringify($json[\"payload\"]) }}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2048,
+        -1056
+      ],
+      "id": "b02a90e4-97dc-4e77-a44a-7a027f2c5615",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "return {\n  stat_graph_features: [\n    item.json['Src Port'],\n    item.json['Dst Port'],\n    item.json['Protocol'],\n    item.json['Flow Duration'],\n    item.json['Total Fwd Packet'],\n    item.json['Total Bwd packets'],\n    item.json['Total Length of Fwd Packet'],\n    item.json['Total Length of Bwd Packet'],\n    item.json['Fwd Packet Length Max'],\n    item.json['Fwd Packet Length Min'],\n    item.json['Fwd Packet Length Mean'],\n    item.json['Fwd Packet Length Std'],\n    item.json['Bwd Packet Length Max'],\n    item.json['Bwd Packet Length Min'],\n    item.json['Bwd Packet Length Mean'],\n    item.json['Bwd Packet Length Std'],\n    item.json['Flow Bytes/s'],\n    item.json['Flow Packets/s'],\n    item.json['Fwd PSH Flags'],\n    item.json['Bwd PSH Flags'],\n    item.json['Fwd URG Flags'],\n    item.json['Bwd URG Flags'],\n    item.json['Fwd Header Length'],\n    item.json['Bwd Header Length'],\n    item.json['Fwd Packets/s'],\n    item.json['Bwd Packets/s'],\n    item.json['Packet Length Min'],\n    item.json['Packet Length Max'],\n    item.json['Packet Length Mean'],\n    item.json['Packet Length Std'],\n    item.json['Packet Length Variance'],\n    item.json['FIN Flag Count'],\n    item.json['SYN Flag Count'],\n    item.json['RST Flag Count'],\n    item.json['PSH Flag Count'],\n    item.json['ACK Flag Count'],\n    item.json['URG Flag Count'],\n    item.json['CWR Flag Count'],\n    item.json['ECE Flag Count'],\n    item.json['Down/Up Ratio'],\n    item.json['Average Packet Size'],\n    item.json['Fwd Segment Size Avg'],\n    item.json['Bwd Segment Size Avg'],\n    item.json['Fwd Bytes/Bulk Avg'],\n    item.json['Fwd Packet/Bulk Avg'],\n    item.json['Fwd Bulk Rate Avg'],\n    item.json['Bwd Bytes/Bulk Avg'],\n    item.json['Bwd Packet/Bulk Avg'],\n    item.json['Bwd Bulk Rate Avg'],\n    item.json['Subflow Fwd Packets'],\n    item.json['Subflow Fwd Bytes'],\n    item.json['Subflow Bwd Packets'],\n    item.json['Subflow Bwd Bytes'],\n    item.json['FWD Init Win Bytes'],\n    item.json['Bwd Init Win Bytes'],\n    item.json['Fwd Act Data Pkts'],\n    item.json['Fwd Seg Size Min'],\n    item.json['Active Mean'],\n    item.json['Active Std'],\n    item.json['Active Max'],\n    item.json['Active Min'],\n    item.json['Idle Mean'],\n    item.json['Idle Std'],\n    item.json['Idle Max'],\n    item.json['Idle Min'],\n    item.json['Hour'],\n    item.json['Day'],\n    item.json['Weekday']\n  ],\n  temporal_features: [\n    item.json['Flow IAT Mean'],\n    item.json['Flow IAT Std'],\n    item.json['Flow IAT Max'],\n    item.json['Flow IAT Min'],\n    item.json['Fwd IAT Total'],\n    item.json['Fwd IAT Mean'],\n    item.json['Fwd IAT Std'],\n    item.json['Fwd IAT Max'],\n    item.json['Fwd IAT Min'],\n    item.json['Bwd IAT Total'],\n    item.json['Bwd IAT Mean'],\n    item.json['Bwd IAT Std'],\n    item.json['Bwd IAT Max'],\n    item.json['Bwd IAT Min']\n  ]\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -720,
+        -464
+      ],
+      "id": "88a115ac-fbc7-48ff-a669-1e9f9a54d292",
+      "name": "APT features2"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const prediction = $json.predicted_class_dos;\nconst prob = $json.confidence_dos;\nconst isNormal = prediction === 0;\nconst tableName = isNormal ? \"normal_traffic_ddos\" : \"attack_traffic_ddos\";\n\nconst keyMap = {\n  src_ip: 'src_ip',\n  dst_ip: 'dst_ip',\n  src_port: 'src_port',\n  dst_port: 'dst_port',\n  protocol: 'protocol',\n  timestamp: 'created_at',\n  flow_duration: 'flow_duration',\n  flow_byts_s: 'flow_byts_s',\n  flow_pkts_s: 'flow_pkts_s',\n  fwd_pkts_s: 'fwd_pkts_s',\n  bwd_pkts_s: 'bwd_pkts_s',\n  tot_fwd_pkts: 'tot_fwd_pkts',\n  tot_bwd_pkts: 'tot_bwd_pkts',\n  totlen_fwd_pkts: 'totlen_fwd_pkts',\n  totlen_bwd_pkts: 'totlen_bwd_pkts',\n  fwd_pkt_len_max: 'fwd_pkt_len_max',\n  fwd_pkt_len_min: 'fwd_pkt_len_min',\n  fwd_pkt_len_mean: 'fwd_pkt_len_mean',\n  fwd_pkt_len_std: 'fwd_pkt_len_std',\n  bwd_pkt_len_max: 'bwd_pkt_len_max',\n  bwd_pkt_len_min: 'bwd_pkt_len_min',\n  bwd_pkt_len_mean: 'bwd_pkt_len_mean',\n  bwd_pkt_len_std: 'bwd_pkt_len_std',\n  pkt_len_min: 'pkt_len_min',\n  pkt_len_max: 'pkt_len_max',\n  pkt_len_std: 'pkt_len_std',\n  pkt_len_var: 'pkt_len_var',\n  fin_flag_cnt: 'fin_flag_cnt',\n  syn_flag_cnt: 'syn_flag_cnt',\n  down_up_ratio: 'down_up_ratio',\n  pkt_size_avg: 'pkt_size_avg',\n  fwd_seg_size_avg: 'fwd_seg_size_avg',\n  bwd_seg_size_avg: 'bwd_seg_size_avg',\n  subflow_fwd_byts: 'subflow_fwd_byts',\n  subflow_bwd_byts: 'subflow_bwd_byts',\n  fwd_act_data_pkts: 'fwd_act_data_pkts',\n  fwd_header_len: 'fwd_header_len',\n  bwd_header_len: 'bwd_header_len',\n  bwd_iat_tot: 'bwd_iat_tot',\n  bwd_iat_mean: 'bwd_iat_mean',\n  bwd_iat_min: 'bwd_iat_min'\n};\n\nconst row = {};\nfor (const [inputKey, dbKey] of Object.entries(keyMap)) {\n  const raw = $json?.[inputKey];  // ✅ fixed: use flat access\n  if (raw === undefined || raw === null || raw === '') {\n    row[dbKey] = null;\n  } else if (!isNaN(raw) && typeof raw !== 'string') {\n    row[dbKey] = raw;\n  } else if (!isNaN(Number(raw))) {\n    row[dbKey] = Number(raw);\n  } else {\n    row[dbKey] = raw;\n  }\n}\n\nif (!isNormal) {\n  row.Label = 1;\n}\nrow.prob = (!isNaN(prob) && prob !== null) ? Number(prob) : null;\n\nreturn {\n  json: {\n    supabase_url: $('Supabase credentials').first().json.supabase_url,\n    supabase_key: $('Supabase credentials').first().json.supabase_key,\n    table: tableName,\n    payload: row,\n    pred: prediction,\n    prob: row.Prob  // ✅ use the value from payload (safe + converted)\n  }\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2144,
+        1056
+      ],
+      "id": "e091e9ee-af80-446b-a96d-e255a65fc522",
+      "name": "Push into Supabase2",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.supabase_url }}/rest/v1/{{$json[\"table\"]}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Supabase credentials').item.json.supabase_key }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Supabase credentials').item.json.supabase_key }}"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[{{ JSON.stringify($json[\"payload\"]) }}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2416,
+        1136
+      ],
+      "id": "9c229fdf-d1e8-455d-b4f9-3f6958457ed3",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  \n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3408,
+        -144
+      ],
+      "id": "19fbda8a-3db2-4cf4-9a43-b4d61034e71f",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "supabase_url",
+              "value": "https://qpofvsdudjiauslixazu.supabase.co"
+            },
+            {
+              "name": "supabase_key",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwb2Z2c2R1ZGppYXVzbGl4YXp1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTEzMjgzMywiZXhwIjoyMDY2NzA4ODMzfQ._ogfbTi1ShFqNSo4IMcj6rRVE516dpvXgSBGzpStz6k"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "de9b3f3c-6d34-4d2f-a80a-cbc4b9319cf0",
+      "name": "Supabase credentials",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -1840,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1648,
+        -1056
+      ],
+      "id": "64155047-0edd-4395-892b-4d315c79840e",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apt-model-11.onrender.com/predict",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -528,
+        -464
+      ],
+      "id": "a73bc524-2a4b-4840-bbe7-d5fd880acf78",
+      "name": "APT Model2",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = items[0].json.body || items[0].json;\n\n// Extract fields\nconst {\n  src_ip,\n  dst_ip,\n  src_port,\n  dst_port,\n  protocol,\n  attack_label,\n  attack_type,\n  probability\n} = data;\n\n// Mappings\nconst aptMap = {\n  0: 'Data Exfiltration',\n  1: 'Initial Compromise',\n  2: 'Lateral Movement',\n  3: 'Normal Traffic',        // to be filtered\n  4: 'Pivoting',\n  5: 'Reconnaissance'\n};\n\nconst dosMap = {\n  1: 'Benign',\n  2: 'DNS Amplification',\n  3: 'LDAP Amplification',\n  4: 'MSSQL Amplification',\n  5: 'NetBIOS Amplification',\n  6: 'NTP Amplification',\n  7: 'SSDP Amplification',\n  8: 'SYN Flood',\n  9: 'UDP Amplification',\n  10: 'UDP Lag'              // to be filtered\n};\n\nlet attack_name = '';\nlet should_alert = true;\nlet label_heading = '';\n\n// Determine subtype/stage from correct map\nif (attack_type === 'APT') {\n  attack_name = aptMap[attack_label];\n  label_heading = 'Stage';\n  if (attack_label === 3) should_alert = false;  // Normal Traffic\n} else if (attack_type === 'DOS') {\n  attack_name = dosMap[attack_label];\n  label_heading = 'Subtype';\n  if (attack_label === 1) should_alert = false; // Benign\n} else {\n  attack_name = 'Unknown';\n  should_alert = false;\n  label_heading = 'Unknown';\n}\n\n// Compute threat level\nlet threat_level = 'Low';\nif (probability > 0.8) {\n  threat_level = 'High';\n} else if (probability > 0.5) {\n  threat_level = 'Medium';\n}\n\n// Don't return if not alert-worthy\nif (!should_alert) {\n  return [];\n}\n\nreturn [\n  {\n    json: {\n      src_ip,\n      dst_ip,\n      src_port,\n      dst_port,\n      protocol,\n      attack_type,\n      attack_name,\n      label_heading,\n      probability,\n      threat_level\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2128,
+        -224
+      ],
+      "id": "034ed1ad-1c8f-4eb7-9871-d153dfa160d5",
+      "name": "Evaluating Risk"
+    },
+    {
+      "parameters": {
+        "fromEmail": "akathait_be22@thapar.edu",
+        "toEmail": "shreeya.kesarwani65@gmail.com",
+        "subject": "Cybershield Alert: Threat Detected",
+        "html": "=<h2>🚨 CyberShield Alert: {{ $json.attack_type }} Detected 🚨</h2>\n\n<p><strong>Attack Type:</strong> {{ $json.attack_type }}</p>\n<p><strong>{{ $json.label_heading }}:</strong> {{ $json.attack_name }}</p>\n<p><strong>Probability:</strong> {{ $json.probability }}</p>\n\n<hr>\n\n<p><strong>Source IP:</strong> {{ $json.src_ip }}</p>\n<p><strong>Source Port:</strong> {{ $json.src_port }}</p>\n<p><strong>Destination IP:</strong> {{ $json.dst_ip }}</p>\n<p><strong>Destination Port:</strong> {{ $json.dst_port }}</p>\n<p><strong>Protocol:</strong> {{ $json.protocol }}</p>\n\n<hr>\n\n<p><strong>Threat Level:</strong> \n  <span style=\"color: {{ $json.threat_level === 'High' ? 'red' : ($json.threat_level === 'Medium' ? 'orange' : 'green') }}\">\n    {{ $json.threat_level }}\n  </span>\n</p>\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        2400,
+        -336
+      ],
+      "id": "d7c78fce-cc78-4cd7-9c6a-ef5f292b1483",
+      "name": "Send email",
+      "webhookId": "193d03dc-a21f-41fb-a760-2422d197b88d",
+      "credentials": {
+        "smtp": {
+          "id": "5qgoQVtDwDP6GcQK",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "from": "+12294145744",
+        "to": "+919501701380",
+        "message": "=CyberShield Alert: {{ $json.attack_type }} - {{ $json.attack_name }} Src IP: {{ $json.src_ip }}, Dst IP: {{ $json.dst_ip }} Protocol: {{ $json.protocol }}, Risk: {{ $json.threat_level }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        2432,
+        -176
+      ],
+      "id": "e33748d8-bc9e-4e84-8e5f-f1397ed4b5e2",
+      "name": "Send an SMS/MMS/WhatsApp message",
+      "credentials": {
+        "twilioApi": {
+          "id": "xgB2gMdmqo4z3EXs",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n-preprocessor.onrender.com/preprocess/dos",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[\n  {\n    \"protocol\": {{$json[\"protocol\"]}},\n    \"flow_duration\": {{$json[\"flow_duration\"]}},\n    \"tot_fwd_pkts\": {{$json[\"tot_fwd_pkts\"]}},\n    \"tot_bwd_pkts\": {{$json[\"tot_bwd_pkts\"]}},\n    \"totlen_fwd_pkts\": {{$json[\"totlen_fwd_pkts\"]}},\n    \"totlen_bwd_pkts\": {{$json[\"totlen_bwd_pkts\"]}},\n    \"fwd_pkt_len_max\": {{$json[\"fwd_pkt_len_max\"]}},\n    \"fwd_pkt_len_min\": {{$json[\"fwd_pkt_len_min\"]}},\n    \"fwd_pkt_len_mean\": {{$json[\"fwd_pkt_len_mean\"]}},\n    \"fwd_pkt_len_std\": {{$json[\"fwd_pkt_len_std\"]}},\n    \"bwd_pkt_len_max\": {{$json[\"bwd_pkt_len_max\"]}},\n    \"bwd_pkt_len_min\": {{$json[\"bwd_pkt_len_min\"]}},\n    \"bwd_pkt_len_mean\": {{$json[\"bwd_pkt_len_mean\"]}},\n    \"bwd_pkt_len_std\": {{$json[\"bwd_pkt_len_std\"]}},\n    \"flow_byts_s\": {{$json[\"flow_byts_s\"]}},\n    \"flow_pkts_s\": {{$json[\"flow_pkts_s\"]}},\n    \"flow_iat_mean\": {{$json[\"flow_iat_mean\"]}},\n    \"flow_iat_std\": {{$json[\"flow_iat_std\"]}},\n    \"flow_iat_max\": {{$json[\"flow_iat_max\"]}},\n    \"flow_iat_min\": {{$json[\"flow_iat_min\"]}},\n    \"fwd_iat_tot\": {{$json[\"fwd_iat_tot\"]}},\n    \"fwd_iat_mean\": {{$json[\"fwd_iat_mean\"]}},\n    \"fwd_iat_std\": {{$json[\"fwd_iat_std\"]}},\n    \"fwd_iat_max\": {{$json[\"fwd_iat_max\"]}},\n    \"fwd_iat_min\": {{$json[\"fwd_iat_min\"]}},\n    \"bwd_iat_tot\": {{$json[\"bwd_iat_tot\"]}},\n    \"bwd_iat_mean\": {{$json[\"bwd_iat_mean\"]}},\n    \"bwd_iat_std\": {{$json[\"bwd_iat_std\"]}},\n    \"bwd_iat_max\": {{$json[\"bwd_iat_max\"]}},\n    \"bwd_iat_min\": {{$json[\"bwd_iat_min\"]}},\n    \"fwd_header_len\": {{$json[\"fwd_header_len\"]}},\n    \"bwd_header_len\": {{$json[\"bwd_header_len\"]}},\n    \"fwd_pkts_s\": {{$json[\"fwd_pkts_s\"]}},\n    \"bwd_pkts_s\": {{$json[\"bwd_pkts_s\"]}},\n    \"pkt_len_min\": {{$json[\"pkt_len_min\"]}},\n    \"pkt_len_max\": {{$json[\"pkt_len_max\"]}},\n    \"pkt_len_mean\": {{$json[\"pkt_len_mean\"]}},\n    \"pkt_len_std\": {{$json[\"pkt_len_std\"]}},\n    \"pkt_len_var\": {{$json[\"pkt_len_var\"]}},\n    \"fin_flag_cnt\": {{$json[\"fin_flag_cnt\"]}},\n    \"syn_flag_cnt\": {{$json[\"syn_flag_cnt\"]}},\n    \"rst_flag_cnt\": {{$json[\"rst_flag_cnt\"]}},\n    \"ack_flag_cnt\": {{$json[\"ack_flag_cnt\"]}},\n    \"down_up_ratio\": {{$json[\"down_up_ratio\"]}},\n    \"pkt_size_avg\": {{$json[\"pkt_size_avg\"]}},\n    \"fwd_seg_size_avg\": {{$json[\"fwd_seg_size_avg\"]}},\n    \"bwd_seg_size_avg\": {{$json[\"bwd_seg_size_avg\"]}},\n    \"subflow_fwd_byts\": {{$json[\"subflow_fwd_byts\"]}},\n    \"subflow_bwd_byts\": {{$json[\"subflow_bwd_byts\"]}},\n    \"fwd_act_data_pkts\": {{$json[\"fwd_act_data_pkts\"]}}\n  }\n]\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1056,
+        240
+      ],
+      "id": "54183e7c-9932-49ab-bc74-346a0b88b38b",
+      "name": "dos prepro1"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "return {\n  json: {\n    protocol: parseFloat($json.protocol),\n    flow_duration: parseFloat($json.flow_duration),\n    tot_fwd_pkts: parseFloat($json.tot_fwd_pkts),\n    tot_bwd_pkts: parseFloat($json.tot_bwd_pkts),\n    totlen_fwd_pkts: parseFloat($json.totlen_fwd_pkts),\n    totlen_bwd_pkts: parseFloat($json.totlen_bwd_pkts),\n    fwd_pkt_len_max: parseFloat($json.fwd_pkt_len_max),\n    fwd_pkt_len_min: parseFloat($json.fwd_pkt_len_min),\n    fwd_pkt_len_mean: parseFloat($json.fwd_pkt_len_mean),\n    fwd_pkt_len_std: parseFloat($json.fwd_pkt_len_std),\n    bwd_pkt_len_max: parseFloat($json.bwd_pkt_len_max),\n    bwd_pkt_len_min: parseFloat($json.bwd_pkt_len_min),\n    bwd_pkt_len_mean: parseFloat($json.bwd_pkt_len_mean),\n    bwd_pkt_len_std: parseFloat($json.bwd_pkt_len_std),\n    flow_byts_s: parseFloat($json.flow_byts_s),\n    flow_pkts_s: parseFloat($json.flow_pkts_s),\n    flow_iat_mean: parseFloat($json.flow_iat_mean),\n    flow_iat_std: parseFloat($json.flow_iat_std),\n    flow_iat_max: parseFloat($json.flow_iat_max),\n    flow_iat_min: parseFloat($json.flow_iat_min),\n    fwd_iat_tot: parseFloat($json.fwd_iat_tot),\n    fwd_iat_mean: parseFloat($json.fwd_iat_mean),\n    fwd_iat_std: parseFloat($json.fwd_iat_std),\n    fwd_iat_max: parseFloat($json.fwd_iat_max),\n    fwd_iat_min: parseFloat($json.fwd_iat_min),\n    bwd_iat_tot: parseFloat($json.bwd_iat_tot),\n    bwd_iat_mean: parseFloat($json.bwd_iat_mean),\n    bwd_iat_std: parseFloat($json.bwd_iat_std),\n    bwd_iat_max: parseFloat($json.bwd_iat_max),\n    bwd_iat_min: parseFloat($json.bwd_iat_min),\n    fwd_header_len: parseFloat($json.fwd_header_len),\n    bwd_header_len: parseFloat($json.bwd_header_len),\n    fwd_pkts_s: parseFloat($json.fwd_pkts_s),\n    bwd_pkts_s: parseFloat($json.bwd_pkts_s),\n    pkt_len_min: parseFloat($json.pkt_len_min),\n    pkt_len_max: parseFloat($json.pkt_len_max),\n    pkt_len_mean: parseFloat($json.pkt_len_mean),\n    pkt_len_std: parseFloat($json.pkt_len_std),\n    pkt_len_var: parseFloat($json.pkt_len_var),\n    fin_flag_cnt: parseFloat($json.fin_flag_cnt),\n    syn_flag_cnt: parseFloat($json.syn_flag_cnt),\n    rst_flag_cnt: parseFloat($json.rst_flag_cnt),\n    ack_flag_cnt: parseFloat($json.ack_flag_cnt),\n    down_up_ratio: parseFloat($json.down_up_ratio),\n    pkt_size_avg: parseFloat($json.pkt_size_avg),\n    fwd_seg_size_avg: parseFloat($json.fwd_seg_size_avg),\n    bwd_seg_size_avg: parseFloat($json.bwd_seg_size_avg),\n    subflow_fwd_byts: parseFloat($json.subflow_fwd_byts),\n    subflow_bwd_byts: parseFloat($json.subflow_bwd_byts),\n    fwd_act_data_pkts: parseFloat($json.fwd_act_data_pkts)\n  }\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1264,
+        240
+      ],
+      "id": "75413907-3092-457e-a9af-040dc045fc89",
+      "name": "DOS Features1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ddos-api-z6nd.onrender.com/predict",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json[\"batch\"]) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -656,
+        400
+      ],
+      "id": "c3b25e81-318f-446d-a0bb-4cdebee5495d",
+      "name": "DOS Model1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// In \"Run Once for All Items\" mode, the '$input.all()' method converts\n// the incoming data into a standard JavaScript array we can loop through.\nconst allMergedItems = $input.all();\n\n// This will be our final flat list of prediction objects.\nconst finalOutput = [];\n\n// Loop through each of the merged items (e.g., your 4 batches)\nfor (const item of allMergedItems) {\n  const mergedBatch = item.json;\n\n  // Extract the data for the current batch\n  const batch = mergedBatch.batch;\n  const prediction = mergedBatch.predicted_class;\n  const confidence = mergedBatch.confidence;\n\n  // Safety check\n  if (!batch || prediction === undefined) {\n    continue;\n  }\n\n  // Loop through the 10 rows WITHIN this batch to create 10 output items\n  for (const originalRow of batch) {\n\n    // --- KEY CHANGE IS HERE ---\n    // 1. Convert the \"Class 0\" string to the number 0\n    const classNumber = parseInt(prediction.replace('Class ', ''), 10);\n\n    // 2. Create the new object using the converted number\n    const predictionObject = {\n      predicted_class_dos: classNumber, // <-- Use the converted number\n      confidence_dos: confidence\n    };\n\n    // Add this new, smaller object to our final output list\n    finalOutput.push({ json: predictionObject });\n  }\n}\n\n// Return the complete list of all prediction items (e.g., 40 of them).\nreturn finalOutput;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -288,
+        272
+      ],
+      "id": "bab0f2e6-3bd4-4910-9bad-a00844e45180",
+      "name": "Code5"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -464,
+        272
+      ],
+      "id": "d33941b0-48e9-4197-8c2f-c16b0ebdd346",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// // The input to this node, $json, is the array of 10 rows for the current batch.\n// const currentBatch = $json;\n\n// // We just need to return this batch, wrapped in the standard n8n format\n// // so the next node can access it easily.\n// return {\n//   json: currentBatch\n// };\n\n// The loop passes 10 separate items to this node.\n// $items() is a function that collects ALL items passed to this node// This node runs inside a loop that provides 10 items.\n// We need to collect all 10 items before passing them to the model.\n// Group all items into batches of 10// Get all input rows\nconst inputItems = $input.all();\nconst rows = inputItems.map(item => item.json);\n\nconst chunkSize = 10;\nconst result = [];\n\n// Break rows into batches of 10\nfor (let i = 0; i < rows.length; i += chunkSize) {\n  const chunk = rows.slice(i, i + chunkSize);\n  if (chunk.length === 10) {\n    result.push({ json: { batch: chunk } });\n  }\n}\n\nreturn result;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -880,
+        240
+      ],
+      "id": "0207aab9-521a-4742-bf00-14bd93ae8fb1",
+      "name": "Code4"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        192,
+        -144
+      ],
+      "id": "cb74dc03-d199-4157-8e1d-7ad133bff71f",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Credentials\nconst supabaseUrl = $('Supabase credentials').first().json.supabase_url;\nconst supabaseKey = $('Supabase credentials').first().json.supabase_key;\n\n// Access current row of extracted features\nconst source = $items(\"Extract from File\")[$itemIndex].json;\n\n// Build row to insert into common_data\nconst row = {\n  time: source.timestamp,\n  src_ip: source.src_ip || '',\n  dest_ip: source.dst_ip || '',\n  protocol: source.protocol,\n  src_port: Number(source.src_port),\n  dst_port: Number(source.dst_port),\n  flow_duration: Number(source.flow_duration),\n  label: $('APT Model2').first().json.prediction ?? null,\n  attack_type : \"APT\"\n};\n\n\n\n// Return payload\nreturn {\n  json: {\n    supabase_url: supabaseUrl,\n    supabase_key: supabaseKey,\n    table: \"common_data\",\n    payload: row\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2064,
+        -656
+      ],
+      "id": "2a3b6e71-3d19-4717-b2c2-d8cf8548113b",
+      "name": "Push into Supabase"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.supabase_url }}/rest/v1/{{$json[\"table\"]}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $json.supabase_key }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.supabase_key }}"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[{{ JSON.stringify($json[\"payload\"]) }}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2240,
+        -656
+      ],
+      "id": "2b9777bd-650a-4839-8f51-4fa62d73125f",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const extract = $(\"Extract from File\").first().json;\nconst inputJson = $input.first().json;\nconst predictionKey = inputJson.prediction;\nconst probabilities = inputJson.probabilities || {};\nlet probability = undefined;\nif (typeof probabilities === \"object\" && probabilities !== null) {\n  probability = probabilities[predictionKey];\n}\n\nreturn {\n  src_ip: extract.src_ip,\n  dst_ip: extract.dst_ip,\n  src_port: extract.src_port,\n  dst_port: extract.dst_port,\n  protocol: extract.protocol,\n  attack_label: predictionKey,\n  attack_type: \"APT\",\n  probability,\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        -224
+      ],
+      "id": "a0b2bee7-ef17-4df9-9be9-8fdc3149d7a3",
+      "name": "APT"
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  src_ip: $(\"Extract from File\").first().json.src_ip,\n  dst_ip: $(\"Extract from File\").first().json.dst_ip,\n  src_port: $(\"Extract from File\").first().json.src_port,\n  dst_port: $(\"Extract from File\").first().json.dst_port,\n  protocol: $(\"Extract from File\").first().json.protocol,\n  attack_label: $('Code5').first().json.predicted_class_dos,\n  attack_type: \"DOS\",\n  probability: $('DOS Model1').first().json.confidence,\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1872,
+        128
+      ],
+      "id": "6e15b92f-0dcf-4226-90a1-a5b14b134545",
+      "name": "DOS"
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1904,
+        -656
+      ],
+      "id": "96ddfb58-4017-4f95-b16b-d49dd6a6683c",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Credentials\nconst supabaseUrl = $('Supabase credentials').first().json.supabase_url;\nconst supabaseKey = $('Supabase credentials').first().json.supabase_key;\n\n// Access current row of extracted features\nconst source = $items(\"Extract from File\")[$itemIndex].json;\n\n// Build row to insert into common_data\nconst row = {\n  time: source.timestamp,\n  src_ip: source.src_ip || '',\n  dest_ip: source.dst_ip || '',\n  protocol: source.protocol,\n  src_port: Number(source.src_port),\n  dst_port: Number(source.dst_port),\n  flow_duration: Number(source.flow_duration),\n  label: $('APT Model2').first().json.prediction ?? null,\n  attack_type: \"DOS\"\n};\n\n\n\n// Return payload\nreturn {\n  json: {\n    supabase_url: supabaseUrl,\n    supabase_key: supabaseKey,\n    table: \"common_data\",\n    payload: row\n  }\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2064,
+        640
+      ],
+      "id": "6df9c4ac-54f7-4b2e-a006-2d200128b9c9",
+      "name": "Push into Supabase3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.supabase_url }}/rest/v1/{{$json[\"table\"]}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $json.supabase_key }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.supabase_key }}"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[{{ JSON.stringify($json[\"payload\"]) }}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2240,
+        640
+      ],
+      "id": "0ed62e94-d754-4c9e-b31a-824a87ad15d5",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1904,
+        640
+      ],
+      "id": "ebfb01f2-c18b-48ba-82e0-a8cb3ff1f214",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1232,
+        864
+      ],
+      "id": "829f5fbe-776c-4d83-95bd-d4bfa58e71a0",
+      "name": "Merge2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = items[0].json.body || items[0].json;\n\n// Extract fields\nconst {\n  src_ip,\n  dst_ip,\n  src_port,\n  dst_port,\n  protocol,\n  attack_label,\n  attack_type,\n  probability\n} = data;\n\n// Mappings\nconst aptMap = {\n  0: 'Data Exfiltration',\n  1: 'Initial Compromise',\n  2: 'Lateral Movement',\n  3: 'Normal Traffic',        // to be filtered\n  4: 'Pivoting',\n  5: 'Reconnaissance'\n};\n\nconst dosMap = {\n  1: 'Benign',\n  2: 'DNS Amplification',\n  3: 'LDAP Amplification',\n  4: 'MSSQL Amplification',\n  5: 'NetBIOS Amplification',\n  6: 'NTP Amplification',\n  7: 'SSDP Amplification',\n  8: 'SYN Flood',\n  9: 'UDP Amplification',\n  10: 'UDP Lag'              // to be filtered\n};\n\nlet attack_name = '';\nlet should_alert = true;\nlet label_heading = '';\n\n// Determine subtype/stage from correct map\nif (attack_type === 'APT') {\n  attack_name = aptMap[attack_label];\n  label_heading = 'Stage';\n  if (attack_label === 3) should_alert = false;  // Normal Traffic\n} else if (attack_type === 'DOS') {\n  attack_name = dosMap[attack_label];\n  label_heading = 'Subtype';\n  if (attack_label === 1) should_alert = false; // Benign\n} else {\n  attack_name = 'Unknown';\n  should_alert = false;\n  label_heading = 'Unknown';\n}\n\n// Compute threat level\nlet threat_level = 'Low';\nif (probability > 0.8) {\n  threat_level = 'High';\n} else if (probability > 0.5) {\n  threat_level = 'Medium';\n}\n\n// Don't return if not alert-worthy\nif (!should_alert) {\n  return [];\n}\n\nreturn [\n  {\n    json: {\n      src_ip,\n      dst_ip,\n      src_port,\n      dst_port,\n      protocol,\n      attack_type,\n      attack_name,\n      label_heading,\n      probability,\n      threat_level\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2064,
+        128
+      ],
+      "id": "d2e6a789-c6b1-4c1c-a9f2-a302504909a5",
+      "name": "Evaluating Risk1"
+    },
+    {
+      "parameters": {
+        "fromEmail": "akathait_be22@thapar.edu",
+        "toEmail": "shreeya.kesarwani65@gmail.com",
+        "subject": "Cybershield Alert: Threat Detected",
+        "html": "=<h2>🚨 CyberShield Alert: {{ $json.attack_type }} Detected 🚨</h2>\n\n<p><strong>Attack Type:</strong> {{ $json.attack_type }}</p>\n<p><strong>{{ $json.label_heading }}:</strong> {{ $json.attack_name }}</p>\n<p><strong>Probability:</strong> {{ $json.probability }}</p>\n\n<hr>\n\n<p><strong>Source IP:</strong> {{ $json.src_ip }}</p>\n<p><strong>Source Port:</strong> {{ $json.src_port }}</p>\n<p><strong>Destination IP:</strong> {{ $json.dst_ip }}</p>\n<p><strong>Destination Port:</strong> {{ $json.dst_port }}</p>\n<p><strong>Protocol:</strong> {{ $json.protocol }}</p>\n\n<hr>\n\n<p><strong>Threat Level:</strong> \n  <span style=\"color: {{ $json.threat_level === 'High' ? 'red' : ($json.threat_level === 'Medium' ? 'orange' : 'green') }}\">\n    {{ $json.threat_level }}\n  </span>\n</p>\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        2352,
+        80
+      ],
+      "id": "b907eab6-8e99-4f12-859b-0631cf569710",
+      "name": "Send email1",
+      "webhookId": "193d03dc-a21f-41fb-a760-2422d197b88d",
+      "credentials": {
+        "smtp": {
+          "id": "5qgoQVtDwDP6GcQK",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "from": "+12294145744",
+        "to": "+919501701380",
+        "message": "=CyberShield Alert: {{ $json.attack_type }} - {{ $json.attack_name }} Src IP: {{ $json.src_ip }}, Dst IP: {{ $json.dst_ip }} Protocol: {{ $json.protocol }}, Risk: {{ $json.threat_level }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        2368,
+        272
+      ],
+      "id": "60c044f3-3154-408d-bf04-d1e76140ab38",
+      "name": "Send an SMS/MMS/WhatsApp message1",
+      "credentials": {
+        "twilioApi": {
+          "id": "xgB2gMdmqo4z3EXs",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e8525f42-b2c8-4432-9844-c723d6fe5ba9",
+        "responseMode": "responseNode",
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2016,
+        -176
+      ],
+      "id": "239f71c2-0ba9-4add-a9d4-7ae903bd275e",
+      "name": "Webhook1",
+      "webhookId": "e8525f42-b2c8-4432-9844-c723d6fe5ba9"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1744,
+        640
+      ],
+      "id": "4255bd09-8c5a-4482-b1fc-3d628780367a",
+      "name": "Merge6"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        240,
+        -416
+      ],
+      "id": "7911ec23-d89a-4869-a5b5-694b16fd558b",
+      "name": "Merge8"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1744,
+        -656
+      ],
+      "id": "f38b1bdf-7a48-4842-bffe-93b25f5f1913",
+      "name": "Merge9"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e0408234-1520-45df-8e1d-c58683325b21",
+              "leftValue": "={{ $('APT Model2').item.json.prediction }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "bfe2a327-02d4-4954-9f4e-03ab41b01eba",
+              "leftValue": "={{ $('Code5').item.json.predicted_class_dos }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        384,
+        -144
+      ],
+      "id": "d0ee3c8c-6c24-4ab6-9080-ef25ac4b7220",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "85833a6b-0520-4495-9a95-d55b6f11a916",
+              "name": "Temp",
+              "value": "0",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1008,
+        -160
+      ],
+      "id": "a32d92c5-b484-4f39-bbcd-dda1cc83306b",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "17a7cefc-0eb6-4229-a5bc-d70a23fcc6dd",
+              "leftValue": "={{ $('Code5').item.json.predicted_class_dos }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "1f3a6c74-3e6f-4b0a-8b54-bfbd9f6ca8e8",
+              "leftValue": "={{ $('APT Model2').item.json.prediction }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        128
+      ],
+      "id": "b6f08d01-d4e1-4a15-9887-30f05dbf250d",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9c22ec0f-5fad-4206-b02f-c19690d032fa",
+              "leftValue": "={{ $json.Temp }}",
+              "rightValue": "1",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1344,
+        48
+      ],
+      "id": "0c64ede5-bcf3-4666-89e1-fd7b47638854",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0c833a3d-1c0b-41b3-bd24-5284eecdd013",
+              "leftValue": "={{ $('APT Model2').item.json.prediction }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "e4b937c0-b8e2-47df-a991-32712ef4ae3a",
+              "leftValue": "={{ $('Code5').item.json.predicted_class_dos }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "6c4d57d6-a6c1-462e-9dd1-3e3df829a02a",
+              "leftValue": "={{ $('APT Model2').item.json.probabilities[$('APT Model2').item.json.prediction] }}",
+              "rightValue": "={{ $('Code5').item.json.confidence_dos }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        688,
+        400
+      ],
+      "id": "c3271129-a6d3-4c7b-8422-d2bf11c2700f",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6e1d109a-710b-4b7e-9893-f30b27a7a3bd",
+              "leftValue": "={{ $('APT Model2').item.json.prediction }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "192d2cc7-5f87-40fa-8fcd-d5a314956298",
+              "leftValue": "={{ $('Code5').item.json.predicted_class_dos }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        144
+      ],
+      "id": "9ce684fa-787c-4ead-915a-662ad830ee8f",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f8324297-b053-41b3-b373-0a6383fa330c",
+              "name": "Temp",
+              "value": "1",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        432
+      ],
+      "id": "e61592e6-88a1-45c1-8976-2ac734e7b519",
+      "name": "Edit Fields7"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Credentials\nconst supabaseUrl = $('Supabase credentials').first().json.supabase_url;\nconst supabaseKey = $('Supabase credentials').first().json.supabase_key;\n\n// Prepare transformed output for all 50 items\nconst output = $items(\"Extract from File\").map(item => {\n  const source = item.json;\n  const toNum = val => Number(val || 0.0);\n\n  const row = {\n    src_ip: source.src_ip || '',\n    dst_ip: source.dst_ip || '',\n    src_port: toNum(source.src_port),\n    dst_port: toNum(source.dst_port),\n    protocol: source.protocol || '',\n    flow_duration: toNum(source.flow_duration),\n    label: toNum(source.label),\n    attack_type: source.attack_type || 'unknown',\n    prob: toNum(source.prob),\n    tot_fwd_pkts: toNum(source.tot_fwd_pkts),\n    tot_bwd_pkts: toNum(source.tot_bwd_pkts),\n    totlen_fwd_pkts: toNum(source.totlen_fwd_pkts),\n    totlen_bwd_pkts: toNum(source.totlen_bwd_pkts),\n    fwd_pkt_len_max: toNum(source.fwd_pkt_len_max),\n    fwd_pkt_len_min: toNum(source.fwd_pkt_len_min),\n    fwd_pkt_len_mean: toNum(source.fwd_pkt_len_mean),\n    fwd_pkt_len_std: toNum(source.fwd_pkt_len_std),\n    bwd_pkt_len_max: toNum(source.bwd_pkt_len_max),\n    bwd_pkt_len_min: toNum(source.bwd_pkt_len_min),\n    bwd_pkt_len_mean: toNum(source.bwd_pkt_len_mean),\n    bwd_pkt_len_std: toNum(source.bwd_pkt_len_std),\n    flow_byts_s: toNum(source.flow_byts_s),\n    flow_pkts_s: toNum(source.flow_pkts_s),\n    flow_iat_mean: toNum(source.flow_iat_mean),\n    flow_iat_std: toNum(source.flow_iat_std),\n    flow_iat_max: toNum(source.flow_iat_max),\n    flow_iat_min: toNum(source.flow_iat_min),\n    fwd_iat_tot: toNum(source.fwd_iat_tot),\n    fwd_iat_mean: toNum(source.fwd_iat_mean),\n    fwd_iat_std: toNum(source.fwd_iat_std),\n    fwd_iat_max: toNum(source.fwd_iat_max),\n    fwd_iat_min: toNum(source.fwd_iat_min),\n    bwd_iat_tot: toNum(source.bwd_iat_tot),\n    bwd_iat_mean: toNum(source.bwd_iat_mean),\n    bwd_iat_std: toNum(source.bwd_iat_std),\n    bwd_iat_max: toNum(source.bwd_iat_max),\n    bwd_iat_min: toNum(source.bwd_iat_min),\n    fwd_psh_flags: toNum(source.fwd_psh_flags),\n    bwd_psh_flags: toNum(source.bwd_psh_flags),\n    fwd_urg_flags: toNum(source.fwd_urg_flags),\n    bwd_urg_flags: toNum(source.bwd_urg_flags),\n    fwd_header_len: toNum(source.fwd_header_len),\n    bwd_header_len: toNum(source.bwd_header_len),\n    fwd_pkts_s: toNum(source.fwd_pkts_s),\n    bwd_pkts_s: toNum(source.bwd_pkts_s),\n    pkt_len_min: toNum(source.pkt_len_min),\n    pkt_len_max: toNum(source.pkt_len_max),\n    pkt_len_mean: toNum(source.pkt_len_mean),\n    pkt_len_std: toNum(source.pkt_len_std),\n    pkt_len_var: toNum(source.pkt_len_var),\n    fin_flag_cnt: toNum(source.fin_flag_cnt),\n    syn_flag_cnt: toNum(source.syn_flag_cnt),\n    rst_flag_cnt: toNum(source.rst_flag_cnt),\n    psh_flag_cnt: toNum(source.psh_flag_cnt),\n    ack_flag_cnt: toNum(source.ack_flag_cnt),\n    urg_flag_cnt: toNum(source.urg_flag_cnt),\n    cwr_flag_cnt: toNum(source.cwr_flag_cnt),\n    ece_flag_cnt: toNum(source.ece_flag_cnt),\n    down_up_ratio: toNum(source.down_up_ratio),\n    pkt_size_avg: toNum(source.pkt_size_avg),\n    fwd_seg_size_avg: toNum(source.fwd_seg_size_avg),\n    bwd_seg_size_avg: toNum(source.bwd_seg_size_avg),\n    fwd_byts_b_avg: toNum(source.fwd_byts_b_avg),\n    fwd_pkts_b_avg: toNum(source.fwd_pkts_b_avg),\n    fwd_blk_rate_avg: toNum(source.fwd_blk_rate_avg),\n    bwd_byts_b_avg: toNum(source.bwd_byts_b_avg),\n    bwd_pkts_b_avg: toNum(source.bwd_pkts_b_avg),\n    bwd_blk_rate_avg: toNum(source.bwd_blk_rate_avg),\n    subflow_fwd_pkts: toNum(source.subflow_fwd_pkts),\n    subflow_fwd_byts: toNum(source.subflow_fwd_byts),\n    subflow_bwd_pkts: toNum(source.subflow_bwd_pkts),\n    subflow_bwd_byts: toNum(source.subflow_bwd_byts),\n    fwd_init_win_bytes: toNum(source.fwd_init_win_bytes),\n    bwd_init_win_bytes: toNum(source.bwd_init_win_bytes),\n    fwd_act_data_pkts: toNum(source.fwd_act_data_pkts),\n    fwd_seg_size_min: toNum(source.fwd_seg_size_min),\n    active_mean: toNum(source.active_mean),\n    active_std: toNum(source.active_std),\n    active_max: toNum(source.active_max),\n    active_min: toNum(source.active_min),\n    idle_mean: toNum(source.idle_mean),\n    idle_std: toNum(source.idle_std),\n    idle_max: toNum(source.idle_max),\n    idle_min: toNum(source.idle_min),\n    hour: toNum(source.hour),\n    day: toNum(source.day),\n    weekday: toNum(source.weekday),\n    label: $('APT Model2').first().json.prediction ?? null,\n    attack_type: \"APT\"\n  };\n\n  return {\n    json: {\n      supabase_url: supabaseUrl,\n      supabase_key: supabaseKey,\n      table: \"all_traffic_data\",\n      payload: row\n    }\n  };\n});\n\n// Return an array of 50 items\nreturn output;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        -656
+      ],
+      "id": "4f52fcf2-d2f3-4e8e-b784-da448ad0020d",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.supabase_url }}/rest/v1/all_traffic_data",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $json.supabase_key }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.supabase_key }}"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[{{ JSON.stringify($json[\"payload\"]) }}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2560,
+        -656
+      ],
+      "id": "0854c266-4429-42bc-890b-155afab56a36",
+      "name": "HTTP Request8"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Credentials\nconst supabaseUrl = $('Supabase credentials').first().json.supabase_url;\nconst supabaseKey = $('Supabase credentials').first().json.supabase_key;\n\n// Prepare transformed output for all 50 items\nconst output = $items(\"Extract from File\").map(item => {\n  const source = item.json;\n  const toNum = val => Number(val || 0.0);\n\n  const row = {\n    src_ip: source.src_ip || '',\n    dst_ip: source.dst_ip || '',\n    src_port: toNum(source.src_port),\n    dst_port: toNum(source.dst_port),\n    protocol: source.protocol || '',\n    flow_duration: toNum(source.flow_duration),\n    label: toNum(source.label),\n    attack_type: source.attack_type || 'unknown',\n    prob: toNum(source.prob),\n    tot_fwd_pkts: toNum(source.tot_fwd_pkts),\n    tot_bwd_pkts: toNum(source.tot_bwd_pkts),\n    totlen_fwd_pkts: toNum(source.totlen_fwd_pkts),\n    totlen_bwd_pkts: toNum(source.totlen_bwd_pkts),\n    fwd_pkt_len_max: toNum(source.fwd_pkt_len_max),\n    fwd_pkt_len_min: toNum(source.fwd_pkt_len_min),\n    fwd_pkt_len_mean: toNum(source.fwd_pkt_len_mean),\n    fwd_pkt_len_std: toNum(source.fwd_pkt_len_std),\n    bwd_pkt_len_max: toNum(source.bwd_pkt_len_max),\n    bwd_pkt_len_min: toNum(source.bwd_pkt_len_min),\n    bwd_pkt_len_mean: toNum(source.bwd_pkt_len_mean),\n    bwd_pkt_len_std: toNum(source.bwd_pkt_len_std),\n    flow_byts_s: toNum(source.flow_byts_s),\n    flow_pkts_s: toNum(source.flow_pkts_s),\n    flow_iat_mean: toNum(source.flow_iat_mean),\n    flow_iat_std: toNum(source.flow_iat_std),\n    flow_iat_max: toNum(source.flow_iat_max),\n    flow_iat_min: toNum(source.flow_iat_min),\n    fwd_iat_tot: toNum(source.fwd_iat_tot),\n    fwd_iat_mean: toNum(source.fwd_iat_mean),\n    fwd_iat_std: toNum(source.fwd_iat_std),\n    fwd_iat_max: toNum(source.fwd_iat_max),\n    fwd_iat_min: toNum(source.fwd_iat_min),\n    bwd_iat_tot: toNum(source.bwd_iat_tot),\n    bwd_iat_mean: toNum(source.bwd_iat_mean),\n    bwd_iat_std: toNum(source.bwd_iat_std),\n    bwd_iat_max: toNum(source.bwd_iat_max),\n    bwd_iat_min: toNum(source.bwd_iat_min),\n    fwd_psh_flags: toNum(source.fwd_psh_flags),\n    bwd_psh_flags: toNum(source.bwd_psh_flags),\n    fwd_urg_flags: toNum(source.fwd_urg_flags),\n    bwd_urg_flags: toNum(source.bwd_urg_flags),\n    fwd_header_len: toNum(source.fwd_header_len),\n    bwd_header_len: toNum(source.bwd_header_len),\n    fwd_pkts_s: toNum(source.fwd_pkts_s),\n    bwd_pkts_s: toNum(source.bwd_pkts_s),\n    pkt_len_min: toNum(source.pkt_len_min),\n    pkt_len_max: toNum(source.pkt_len_max),\n    pkt_len_mean: toNum(source.pkt_len_mean),\n    pkt_len_std: toNum(source.pkt_len_std),\n    pkt_len_var: toNum(source.pkt_len_var),\n    fin_flag_cnt: toNum(source.fin_flag_cnt),\n    syn_flag_cnt: toNum(source.syn_flag_cnt),\n    rst_flag_cnt: toNum(source.rst_flag_cnt),\n    psh_flag_cnt: toNum(source.psh_flag_cnt),\n    ack_flag_cnt: toNum(source.ack_flag_cnt),\n    urg_flag_cnt: toNum(source.urg_flag_cnt),\n    cwr_flag_cnt: toNum(source.cwr_flag_cnt),\n    ece_flag_cnt: toNum(source.ece_flag_cnt),\n    down_up_ratio: toNum(source.down_up_ratio),\n    pkt_size_avg: toNum(source.pkt_size_avg),\n    fwd_seg_size_avg: toNum(source.fwd_seg_size_avg),\n    bwd_seg_size_avg: toNum(source.bwd_seg_size_avg),\n    fwd_byts_b_avg: toNum(source.fwd_byts_b_avg),\n    fwd_pkts_b_avg: toNum(source.fwd_pkts_b_avg),\n    fwd_blk_rate_avg: toNum(source.fwd_blk_rate_avg),\n    bwd_byts_b_avg: toNum(source.bwd_byts_b_avg),\n    bwd_pkts_b_avg: toNum(source.bwd_pkts_b_avg),\n    bwd_blk_rate_avg: toNum(source.bwd_blk_rate_avg),\n    subflow_fwd_pkts: toNum(source.subflow_fwd_pkts),\n    subflow_fwd_byts: toNum(source.subflow_fwd_byts),\n    subflow_bwd_pkts: toNum(source.subflow_bwd_pkts),\n    subflow_bwd_byts: toNum(source.subflow_bwd_byts),\n    fwd_init_win_bytes: toNum(source.fwd_init_win_bytes),\n    bwd_init_win_bytes: toNum(source.bwd_init_win_bytes),\n    fwd_act_data_pkts: toNum(source.fwd_act_data_pkts),\n    fwd_seg_size_min: toNum(source.fwd_seg_size_min),\n    active_mean: toNum(source.active_mean),\n    active_std: toNum(source.active_std),\n    active_max: toNum(source.active_max),\n    active_min: toNum(source.active_min),\n    idle_mean: toNum(source.idle_mean),\n    idle_std: toNum(source.idle_std),\n    idle_max: toNum(source.idle_max),\n    idle_min: toNum(source.idle_min),\n    hour: toNum(source.hour),\n    day: toNum(source.day),\n    weekday: toNum(source.weekday),\n    label: $('Code5').first().json.predicted_class_dos,\n    attack_type: \"DOS\"\n  };\n\n  return {\n    json: {\n      supabase_url: supabaseUrl,\n      supabase_key: supabaseKey,\n      table: \"all_traffic_data\",\n      payload: row\n    }\n  };\n});\n\n// Return an array of 50 items\nreturn output;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2432,
+        640
+      ],
+      "id": "8fa82f82-134e-445d-ae26-150bff7ad220",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.supabase_url }}/rest/v1/all_traffic_data",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $json.supabase_key }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.supabase_key }}"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[{{ JSON.stringify($json[\"payload\"]) }}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2592,
+        640
+      ],
+      "id": "64827ba4-07aa-4473-b093-a8d7f326e33c",
+      "name": "HTTP Request9"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "APT Features1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "DOS Features1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "APT PP1": {
+      "main": [
+        [
+          {
+            "node": "APT features2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APT Features1": {
+      "main": [
+        [
+          {
+            "node": "APT PP1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Push into Supabase1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APT features2": {
+      "main": [
+        [
+          {
+            "node": "APT Model2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Push into Supabase2": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        []
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase credentials": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Push into Supabase1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APT Model2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluating Risk": {
+      "main": [
+        []
+      ]
+    },
+    "dos prepro1": {
+      "main": [
+        [
+          {
+            "node": "Code4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DOS Features1": {
+      "main": [
+        [
+          {
+            "node": "dos prepro1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DOS Model1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Code5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code5": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Code4": {
+      "main": [
+        [
+          {
+            "node": "DOS Model1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Push into Supabase": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APT": {
+      "main": [
+        [
+          {
+            "node": "Evaluating Risk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DOS": {
+      "main": [
+        [
+          {
+            "node": "Evaluating Risk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Push into Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Push into Supabase3": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Push into Supabase3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Push into Supabase2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Send an SMS/MMS/WhatsApp message": {
+      "main": [
+        []
+      ]
+    },
+    "Evaluating Risk1": {
+      "main": [
+        []
+      ]
+    },
+    "Send email": {
+      "main": [
+        []
+      ]
+    },
+    "Send email1": {
+      "main": [
+        []
+      ]
+    },
+    "Send an SMS/MMS/WhatsApp message1": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Supabase credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge6": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge8": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge9": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "APT",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "APT",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields7": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Merge9",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "DOS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request8": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request9": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "094007f3-1c57-4562-82af-97b3f578fbd1",
+  "meta": {
+    "instanceId": "6a85076f1912d5b4174d61d95c8171801399744b2c246f92fe3f156802f50073"
+  },
+  "id": "mjEhyegotEkykB9F",
+  "tags": []
+}
